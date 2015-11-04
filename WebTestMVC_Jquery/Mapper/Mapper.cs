@@ -32,7 +32,6 @@ namespace WebTestMVC_Jquery
             {
                 cusModels.Add(CustomerEntityToModel(cus));
             }
-
             return cusModels;
         }
             
