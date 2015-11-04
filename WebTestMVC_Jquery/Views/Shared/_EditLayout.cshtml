@@ -1,0 +1,152 @@
+﻿@model WebTestMVC_Jquery.Models.CustomerModel
+
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<div id="EditModal" class="modal modal-dialog modal-content" style="overflow-y:auto;">
+    <div class="col-lg-12">
+        <div class="col-sm-6">
+            <h2>Create</h2>
+        </div>
+        <div class="col-sm-6">
+            <button id="btnCancel" class="btn ui-icon-close" style="margin:20px; float:right"> X </button>
+        </div>
+        <div class="col-lg-12">
+            @using (@Html.BeginForm("Edit", "Default"))
+            {
+                <table class="table table-responsive">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.CustomerID)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.CustomerID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.CompanyName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.CompanyName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.ContactName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.ContactName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.ContactTitle)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.ContactTitle)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.Address)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.Address)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.City)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.City)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.Region)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.Region)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.PostalCode)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.PostalCode)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.Country)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.Country)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.Phone)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.Phone)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(o => o.Fax)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(o => o.Fax)
+
+                        </td>
+                    </tr>
+                    <tr>
+                        @*<td>
+                                <button id="btnCancel" class="btn btn-danger"> Cancel </button>
+                            </td>*@
+                        <td>
+                            <input type="submit" value="Update" class="btn btn-primary" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#EditModal").dialog({
+            autoOpen: false,
+            height: 600,
+            width: 800,
+            modal: false,
+            show: {
+                effect: "clip",
+                duration: 500
+            },
+            hide: {
+                effect: "scale",
+                duration: 500
+            },
+            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); }
+
+            //buttons: {
+            //    Cancel: function () {
+            //        $(this).dialog("close");
+            //    }
+            //}
+        });
+
+        $("#btnCancel").click(function () {
+            $("#EditModal").dialog("close");
+        });
+
+    });
+</script>

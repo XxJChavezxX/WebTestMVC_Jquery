@@ -1,0 +1,97 @@
+﻿@model WebTestMVC_Jquery.Models.CustomerModel
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<h2>Details</h2>
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <td>
+           @Html.DisplayNameFor(o => o.CustomerID)
+        </td>
+        <td>
+            @Model.CustomerID 
+        </td>
+    </tr>
+    <tr>
+        <td>
+           @Html.DisplayNameFor(o => o.CompanyName)
+        </td>
+        <td>
+            @Model.CompanyName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.ContactName)
+        </td>
+        <td>
+            @Model.ContactName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.ContactTitle)
+        </td>
+        <td>
+            @Model.ContactTitle
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.Address)
+        </td>
+        <td>
+            @Model.GetFullAddress()
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.Country)
+        </td>
+        <td>
+            @Model.Country
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.Phone)
+        </td>
+        <td>
+            @Model.Phone
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(o => o.Fax)
+        </td>
+        <td>
+            @Model.Fax
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", "Default", new { id = @Model.CustomerID }, new { @class = "btn btn-primary btn-large" })*@
+            <button id="Edit" class="btn btn-primary">Edit</button>
+        </td>
+    </tr>
+</table>
+
+@{Html.RenderPartial("_EditLayout", Model);}
+
+<script>
+    $(function () {
+
+        $("#Edit").click(function () {
+            $("#EditModal").dialog("open");
+        });
+
+    });
+</script>

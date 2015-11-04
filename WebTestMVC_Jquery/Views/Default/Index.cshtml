@@ -1,0 +1,205 @@
+﻿@model IEnumerable<WebTestMVC_Jquery.Customer>
+@*@model WebTestMVC_Jquery.Models.Customer*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css" />
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+
+<div>
+    <h2>Customers</h2>
+</div>
+<div>
+    <button id="btnCreate" class="btn btn-primary"> Create New </button>
+</div>
+<br />
+<br />
+@*@{
+    WebTestMVC_Jquery.Models.CustomerModel cus = new WebTestMVC_Jquery.Models.CustomerModel();
+   
+}
+
+@*<form id="searchForm">
+    <div class="form-group">
+        <label> Search </label>
+        <input type="text" id="txtQuery" />
+        <button type="button" class="btn btn-primary" id="searchBtn"> Search </button>
+    </div>
+</form>*@
+@*<style type="text/css">
+        th { width: 30px;}
+        td { width: 30px;}
+    </style>*@
+
+<table id="customerTable" class="table table-striped"></table>
+@{Html.RenderPartial("_CreateLayout", new WebTestMVC_Jquery.Models.CustomerModel());}
+
+
+<script>
+    $(function () {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetCostumers", "Default", null)',
+            data: { query: "", type: "1" },
+            dataType: "json",
+            success: function (responseData) {
+
+                //Convert json response to json array
+
+                var data = responseData;
+
+                //check for null on the json arrays
+                $.each(data, function (index, item) {
+                    //console.log(item);
+                    $.each(item, function (key, value) {
+                        //console.log(value);
+                        if (value === null) {
+                            item[key] = '-'
+                            //console.log(item[key]);
+                        }
+                    })
+                });
+
+                var dataSet = [];
+                $.each(data, function (index, value) {
+                    var element = $.map(data[index], function (el) { return el; })
+                    dataSet.push(element);
+                });
+                var table = $("#customerTable").DataTable({
+                    data: dataSet,
+                    columns: [
+                        { title: "Customer ID" },
+                        { title: "Company Name" },
+                        { title: "Contact Name" },
+                        { title: "Contact Title" },
+                        { title: "Adress" },
+                        { title: "City" },
+                        { title: "Region" },
+                        { title: "Postal Code" },
+                        { title: "Country" },
+                        { title: "Phone" },
+                        { title: "Fax" },
+                        { title: "Search Query" },
+                        {
+                            render: function (data, type, full, meta) {
+                                return '<a href=""> View Details  </a>'
+                            }
+                        }
+                    ],
+                    drawCallback: function (settings) {
+                        $('#customerTable tbody tr').click(function () {
+                            var obj = table.row(this).data();
+                            //get id of the row
+                            console.log(obj[0]);
+
+                            var cusId = obj[0];
+
+                            var url = "/Default/Details/" + cusId
+                            window.location.href = url;
+
+                            
+                            $.get('@Url.Action("Details","Default", null)', { id: cusId })
+                            .success(function (response) {
+                                alert(response);
+                            }).error(function (response){
+                                alert(response);
+                            });
+                            
+
+                            //add logic to open the details view of the selected ow
+                        });
+                    }
+                });
+
+                //*************  ADD THE TABLE USING HTML MANUALLY ****/
+                //var tblheaders="";
+                //tblheaders += "    <thead>";
+                //tblheaders += "        <tr>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Customer ID";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Company Name";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Contact Name";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Contact Title";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Address";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Country";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Phone";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "            <th>";
+                //tblheaders += "                Fax";
+                //tblheaders += "            <\/th>";
+                //tblheaders += "        <\/tr>";
+                //tblheaders += "    <\/thead>";
+                //$("#customerTable").append(tblheaders);
+                //var row = "";
+                //$.each(data, function (index, item) {
+                //    row += "<tr>" +
+                //                "<td>" +
+                //                    item.CustomerID +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.CompanyName +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.ContactName +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.ContactTitle +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.Address + ", " + item.City + ", " + item.Region + ", " + item.PostalCode +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.Country +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.Phone +
+                //                "</td>" +
+                //                "<td>" +
+                //                    item.Fax +
+                //                "</td>" +
+                //            "</tr>";
+                //});
+                //$("#customerTable").append(row);
+                //alert("success");
+
+                /*******  END OF HTML TABLE Render  ******/
+            },
+            error: function (error) {
+                //var err = eval("(" + xhr.responseText + ")");
+                alert(error.responseText);
+            }
+        });
+
+        $("#searchBtn").click(function (event) {
+            //alert("success");
+            var searchtxt = $("#txtQuery").val();
+            console.log(searchtxt);
+        });
+
+        $("#btnCreate").click(function () {
+            $("#createModal").dialog("open");
+        });
+    });
+</script>

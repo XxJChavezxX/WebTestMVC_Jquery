@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WebTestMVC_Jquery.Customer>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("Search", "Default", FormMethod.Get)){
+<div class="form-group">
+    @*<label> Search </label>*@
+    @Html.TextBox("Query")
+    <input type="submit" class="btn btn-primary" value="Search"/>
+</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(o => o.CustomerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.ContactTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.ContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(o => o.Fax)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in @Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayTextFor(o => item.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.ContactTitle)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.Address)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.Country)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayTextFor(o => item.Fax)
+            </td>
+        </tr>
+
+    }
+</table>
