@@ -196,5 +196,31 @@ namespace WebTestMVC_Jquery.Controllers
             return RedirectToAction("Index", "Default");
 
         }
+        public ActionResult Delete(String id)
+        {
+            try
+            {
+
+                using (var dbContext = new NORTHWNDContext())
+                {
+                    Customer customer = dbContext.Customers.Where(o => o.CustomerID == id).First();
+                    if (customer == null)
+                    {
+                        ViewBag.ErrorMessage = "User was not found";
+                    }
+                    else
+                    {
+                        dbContext.Customers.Remove(customer);
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException(ex.Message);
+            }
+            return RedirectToAction("Index", "Default");
+        }
     }
 }

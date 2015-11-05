@@ -21,20 +21,21 @@
 <div>
     <button id="btnCreate" class="btn btn-primary"> Create New </button>
 </div>
+
 <br />
 <br />
 @*@{
-    WebTestMVC_Jquery.Models.CustomerModel cus = new WebTestMVC_Jquery.Models.CustomerModel();
-   
-}
+        WebTestMVC_Jquery.Models.CustomerModel cus = new WebTestMVC_Jquery.Models.CustomerModel();
 
-@*<form id="searchForm">
-    <div class="form-group">
-        <label> Search </label>
-        <input type="text" id="txtQuery" />
-        <button type="button" class="btn btn-primary" id="searchBtn"> Search </button>
-    </div>
-</form>*@
+    }
+
+    @*<form id="searchForm">
+        <div class="form-group">
+            <label> Search </label>
+            <input type="text" id="txtQuery" />
+            <button type="button" class="btn btn-primary" id="searchBtn"> Search </button>
+        </div>
+    </form>*@
 @*<style type="text/css">
         th { width: 30px;}
         td { width: 30px;}
@@ -71,12 +72,31 @@
                 });
 
                 var dataSet = [];
+              
                 $.each(data, function (index, value) {
                     var element = $.map(data[index], function (el) { return el; })
                     dataSet.push(element);
                 });
                 var table = $("#customerTable").DataTable({
                     data: dataSet,
+                    drawCallback: function (settings) {
+                        $('#customerTable tbody tr').click(function () {
+                            //make the whole row clickable
+                            var obj = table.row(this).data();
+                            //get id of the row
+                            //console.log(obj[0]);
+                            var cusId = obj[0];
+
+                            var url = "/Default/Details/" + cusId
+                            window.location.href = url;
+
+
+                            @*$.get('@Url.Action("Details","Default", null)', { id: cusId })
+                            .success(function (response) {
+                                //alert(response);
+                            })*@
+                        });
+                    },
                     columns: [
                         { title: "Customer ID" },
                         { title: "Company Name" },
@@ -91,34 +111,14 @@
                         { title: "Fax" },
                         { title: "Search Query" },
                         {
-                            render: function (data, type, full, meta) {
-                                return '<a href=""> View Details  </a>'
+                            render: function (data, type, row, meta) {
+                                //row contains the object for each row
+                                //console.log(row[0]);
+                                var url = "/Default/Details/" + row[0]
+                                return '<a class="btn btn-primary" href="'+url+'"> View Details  </a>'
                             }
                         }
                     ],
-                    drawCallback: function (settings) {
-                        $('#customerTable tbody tr').click(function () {
-                            var obj = table.row(this).data();
-                            //get id of the row
-                            console.log(obj[0]);
-
-                            var cusId = obj[0];
-
-                            var url = "/Default/Details/" + cusId
-                            window.location.href = url;
-
-                            
-                            $.get('@Url.Action("Details","Default", null)', { id: cusId })
-                            .success(function (response) {
-                                alert(response);
-                            }).error(function (response){
-                                alert(response);
-                            });
-                            
-
-                            //add logic to open the details view of the selected ow
-                        });
-                    }
                 });
 
                 //*************  ADD THE TABLE USING HTML MANUALLY ****/

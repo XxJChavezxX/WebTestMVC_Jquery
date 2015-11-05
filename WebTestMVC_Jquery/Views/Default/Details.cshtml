@@ -9,80 +9,94 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
-<h2>Details</h2>
 
-<table class="table table-responsive table-striped">
-    <tr>
-        <td>
-           @Html.DisplayNameFor(o => o.CustomerID)
-        </td>
-        <td>
-            @Model.CustomerID 
-        </td>
-    </tr>
-    <tr>
-        <td>
-           @Html.DisplayNameFor(o => o.CompanyName)
-        </td>
-        <td>
-            @Model.CompanyName
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.ContactName)
-        </td>
-        <td>
-            @Model.ContactName
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.ContactTitle)
-        </td>
-        <td>
-            @Model.ContactTitle
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.Address)
-        </td>
-        <td>
-            @Model.GetFullAddress()
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.Country)
-        </td>
-        <td>
-            @Model.Country
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.Phone)
-        </td>
-        <td>
-            @Model.Phone
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @Html.DisplayNameFor(o => o.Fax)
-        </td>
-        <td>
-            @Model.Fax
-        </td>
-    </tr>
-    <tr>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", "Default", new { id = @Model.CustomerID }, new { @class = "btn btn-primary btn-large" })*@
-            <button id="Edit" class="btn btn-primary">Edit</button>
-        </td>
-    </tr>
-</table>
+<div>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <h2>Details</h2>
+        </div>
+        <div class="col-sm-6">
+            @Html.ActionLink("Delete", "Delete", "Default", new { id = Model.CustomerID }, new { @class = "btn btn-danger", style = "float:right; margin:20px" })
+            @*<button class="btn btn-danger" style="float:right; margin:20px">Delete </button>*@
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <table class="table table-responsive table-striped">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.CustomerID)
+                </td>
+                <td>
+                    @Model.CustomerID
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.CompanyName)
+                </td>
+                <td>
+                    @Model.CompanyName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.ContactName)
+                </td>
+                <td>
+                    @Model.ContactName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.ContactTitle)
+                </td>
+                <td>
+                    @Model.ContactTitle
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.Address)
+                </td>
+                <td>
+                    @Model.GetFullAddress()
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.Country)
+                </td>
+                <td>
+                    @Model.Country
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.Phone)
+                </td>
+                <td>
+                    @Model.Phone
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(o => o.Fax)
+                </td>
+                <td>
+                    @Model.Fax
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", "Default", new { id = @Model.CustomerID }, new { @class = "btn btn-primary btn-large" })*@
+                    <button id="Edit" class="btn btn-primary">Edit</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
 
 @{Html.RenderPartial("_EditLayout", Model);}
 
